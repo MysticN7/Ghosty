@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ghosty - Features of Premium Internal Solution for Euro Truck Simulator 2">
+  <title>Ghosty Features | Premium ETS2 Companion</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:;">
+  <style>
+    :root {
+      --primary: #6c5ce7;
+      --primary-hover: #8577f0;
+      --background: #0a0a0a;
+      --surface: #1a1a1a;
+      --border: rgba(255,255,255,0.1);
+      --text-primary: #f5f5f5;
+      --text-secondary: #a0a0a0;
+      --gradient: linear-gradient(135deg, #6c5ce7 0%, #a66efa 100%);
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--background);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      margin: 0;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      touch-action: none;
+      overscroll-behavior: none;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      padding: 1.5rem 5%;
+      background: linear-gradient(135deg, rgba(10,10,10,0.98) 0%, rgba(28,28,28,0.97) 100%);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(108,92,231,0.3);
+      z-index: 1000;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      position: relative;
+      font-size: 2rem;
+      font-weight: 700;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      overflow: visible;
+    }
+
+    .logo-gradient {
+      background: linear-gradient(135deg, #6c5ce7 0%, #ff6b6b 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120%;
+      height: 120%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(108, 92, 231, 0.4) 0%, transparent 70%);
+      filter: blur(15px);
+      animation: glow-pulse 3s infinite alternate;
+      z-index: 1;
+    }
+
+    @keyframes glow-pulse {
+      0% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+
+    .nav-link {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .nav-link:hover {
+      transform: translateY(-2px);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .download-link {
+      background: var(--gradient);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .download-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(108, 92, 231, 0.6);
+    }
+
+    .nav-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-primary);
+      position: relative;
+      z-index: 2;
+      transition: transform 0.5s ease;
+    }
+
+    .nav-toggle.active {
+      transform: rotate(45deg);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+      padding: 4rem 0;
+    }
+
+    .section-header h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.05em;
+    }
+
+    .section-header p {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .features, .roadmap-section {
+      padding: 4rem 5%;
+      position: relative;
+    }
+
+    .features-grid, .development-grid {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .feature-card, .development-card {
+      background: linear-gradient(145deg, rgba(26,26,26,0.9), rgba(40,40,40,0.7));
+      backdrop-filter: blur(12px);
+      padding: 2.5rem;
+      border-radius: 20px;
+      border: 1px solid rgba(108,92,231,0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      min-height: 300px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card:hover, .development-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(108,92,231,0.2);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+
+    .development-card.highlight {
+      position: relative;
+      border: 2px solid var(--primary);
+      box-shadow: 0 0 30px rgba(108, 92, 231, 0.5);
+    }
+
+    .development-card.highlight::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: radial-gradient(circle, rgba(108, 92, 231, 0.2), transparent 70%);
+      z-index: -1;
+      animation: spotlight 3s infinite alternate;
+    }
+
+    @keyframes spotlight {
+      0% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+
+    .development-card.highlight::after {
+      content: "Current Phase";
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: white;
+      color: black;
+      padding: 5px 10px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .premium-footer {
+      background: linear-gradient(155deg, #0a0a0a 0%, #1a1a1a 100%);
+      border-top: 1px solid rgba(108,92,231,0.2);
+      padding: 4rem 5%;
+      margin-top: 8rem;
+    }
+
+    .footer-content {
+      max-width: 1440px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-copyright {
+      text-align: center;
+      padding-top: 2rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .footer-copyright a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-copyright a:hover {
+      color: var(--primary-hover);
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--surface);
+        padding: 1rem;
+        box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+
+      .nav-links.active {
+        display: flex;
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+    }
+
+    img {
+      pointer-events: none;
+      user-drag: none;
+      -webkit-user-drag: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-gradient">TruckersOP</span>
+        <div class="logo-glow"></div>
+      </a>
+      <div class="nav-toggle" onclick="toggleNav()">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div class="nav-links">
+        <a href="features.html" class="nav-link"><i class="fas fa-star"></i> Features</a>
+        <a href="https://qiwi.gg/file/8VZJ1895-GhostyV2" class="download-link"><i class="fas fa-download"></i> Download</a>
+        <a href="https://discord.gg/DtTYqFC98H" class="nav-link"><i class="fab fa-discord"></i> Support</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="features">
+      <div class="section-header">
+        <h1>Features</h1>
+        <p>Explore the powerful functionalities of Ghosty</p>
+      </div>
+      <div class="features-grid">
+        <article class="feature-card"><i class="fas fa-bolt feature-icon"></i><h3>Fake Lag & Speed Hack</h3><p>Simulate network lag and override speed limits.</p></article>
+        <article class="feature-card"><i class="fas fa-car feature-icon"></i><h3>Suspension Control</h3><p>Adjust front and rear suspension independently.</p></article>
+        <article class="feature-card"><i class="fas fa-lightbulb feature-icon"></i><h3>Advanced Lighting</h3><p>Customize headlights, light spam, and super light mod.</p></article>
+        <article class="feature-card"><i class="fas fa-traffic-light feature-icon"></i><h3>Turn Signal Freezing</h3><p>Freeze left, right turn signals, and reverse lights.</p></article>
+        <article class="feature-card"><i class="fas fa-lock feature-icon"></i><h3>Speed Unlocker</h3><p>Bypass vehicle speed limitations.</p></article>
+        <article class="feature-card"><i class="fas fa-chart-line feature-icon"></i><h3>Performance Analytics</h3><p>Real-time tracking of system and game performance.</p></article>
+      </div>
+    </section>
+
+    <section class="roadmap-section">
+      <div class="section-header">
+        <h1>Development Pipeline</h1>
+        <p class="subtitle-green">Next-generation features in active development</p>
+      </div>
+      <div class="development-grid">
+        <div class="development-card highlight">
+          <h3>Ghosty Lite ⭐(Free Version)</h3>
+          <p>A basic version with limited features for those who want to enjoy basic functions and even troll a little.</p>
+        </div>
+        <div class="development-card">
+          <h3>Ghosty Boost ✨</h3>
+          <p>Requires boosting a Discord server for access to extra features like trolling, admin detection, advanced settings, or exclusive content.</p>
+        </div>
+        <div class="development-card">
+          <h3>Ghosty Elite 🌟</h3>
+          <p>A premium paid version offering all functions, top-tier customization, priority support, and exclusive content for the ultimate experience.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="premium-footer">
+    <div class="footer-content">
+      <div class="footer-copyright">
+        <p>Made with 💜 by <a href="https://github.com/MysticN7">©️MysticN7</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleNav() {
+      const navLinks = document.querySelector('.nav-links');
+      const navToggle = document.querySelector('.nav-toggle');
+      navLinks.classList.toggle('active');
+      navToggle.classList.toggle('active');
+    }
+
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+      if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83)) e.preventDefault();
+      if (e.keyCode === 123) e.preventDefault();
+    });
+    console.log('%cSTOP!', 'color: red; font-size: 50px; font-weight: bold;');
+    console.log('%cThis is a browser feature for developers. If someone told you to copy-paste something here, it\'s a scam.', 'font-size: 18px;');
+  </script>
+</body>
+</html>

