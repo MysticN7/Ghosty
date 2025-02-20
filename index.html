@@ -417,8 +417,8 @@
       </div>
       <div class="nav-links">
         <a href="features.html" class="nav-link"><i class="fas fa-star"></i> Features</a>
-        <a href="https://qiwi.gg/file/qaMe7145-GhostyV2" class="download-link"><i class="fas fa-download"></i> Download</a>
-        <a href="https://discord.gg/DtTYqFC98H" class="nav-link"><i class="fab fa-discord"></i> Support</a>
+        <a href="https://qiwi.gg/file/qaMe7145-GhostyV2" class="download-link" target="_blank" rel="noopener noreferrer"><i class="fas fa-download"></i> Download</a>
+        <a href="https://discord.gg/DtTYqFC98H" class="nav-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i> Support</a>
       </div>
     </nav>
   </header>
@@ -429,7 +429,7 @@
         <div class="hero-text">
           <h1>Enhance Your ETS2 Experience</h1>
           <p>Ghosty is the ultimate cheat tool for Euro Truck Simulator 2, fully compatible with TruckersMP. Unlock new possibilities and take your gameplay to the next level.</p>
-          <a href="https://qiwi.gg/file/qaMe7145-GhostyV2" class="download-btn">
+          <a href="https://qiwi.gg/file/qaMe7145-GhostyV2" class="download-btn" target="_blank" rel="noopener noreferrer">
             <i class="fas fa-download"></i>
             Download v2.4
           </a>
@@ -462,17 +462,13 @@
       navLinks.classList.toggle('active');
       navToggle.classList.toggle('active');
     }
-
-    // Prevent right click
     document.addEventListener('contextmenu', e => e.preventDefault());
 
-    // Disable keyboard shortcuts
     document.addEventListener('keydown', e => {
       if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83)) e.preventDefault();
       if (e.keyCode === 123) e.preventDefault(); // F12
     });
 
-    // Console protection
     console.log('%cSTOP!', 'color: red; font-size: 50px; font-weight: bold;');
     console.log('%cThis is a browser feature for developers. If someone told you to copy-paste something here, it\'s a scam.', 'font-size: 18px;');
   </script>
