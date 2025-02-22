@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
@@ -25,13 +24,15 @@
       color: var(--text-primary);
       line-height: 1.6;
       overflow-x: hidden;
+      overflow-y: auto;
       margin: 0;
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
-      touch-action: none;
-      overscroll-behavior: none;
+      touch-action: pan-y;
+      overscroll-behavior-y: auto;
+      cursor: crosshair;
     }
 
     header {
@@ -194,18 +195,52 @@
     .feature-card, .development-card {
       background: linear-gradient(145deg, rgba(26,26,26,0.9), rgba(40,40,40,0.7));
       backdrop-filter: blur(12px);
-      padding: 2.5rem;
+      padding: 1.5rem;
       border-radius: 20px;
-      border: 1px solid rgba(108,92,231,0.3);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      min-height: 300px;
+      border: 1px solid rgba(108,92,231,0.2);
+      box-shadow: 0 0 15px rgba(108,92,231,0.1);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform-origin: center;
       position: relative;
       overflow: hidden;
+      min-height: 280px;
     }
 
-    .feature-card:hover, .development-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 40px rgba(108,92,231,0.2);
+    .feature-card:hover {
+      transform: translateY(-10px) scale(1.05) rotate(2deg);
+      box-shadow: 0 25px 50px rgba(108,92,231,0.3);
+      z-index: 2;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 200%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(108,92,231,0.1),
+        transparent
+      );
+      transition: 0.8s;
+    }
+
+    .feature-card:hover::before {
+      left: 100%;
+    }
+
+    .feature-card.featured-card {
+      border: 1px solid rgba(108,92,231,0.3);
+      background: linear-gradient(145deg, rgba(108,92,231,0.1), rgba(40,40,40,0.7));
+      box-shadow: 0 0 25px rgba(108,92,231,0.15);
+    }
+
+    .feature-card.featured-card:hover {
+      transform: translateY(-15px) scale(1.08) rotate(-2deg);
+      box-shadow: 0 30px 60px rgba(108,92,231,0.4);
     }
 
     .feature-icon {
@@ -214,41 +249,71 @@
       color: var(--primary);
     }
 
-    .development-card.highlight {
+    .development-card {
+      background: linear-gradient(145deg, rgba(26,26,26,0.9), rgba(40,40,40,0.7));
+      backdrop-filter: blur(12px);
+      padding: 2rem;
+      border-radius: 20px;
+      border: 1px solid rgba(108,92,231,0.15);
+      box-shadow: 0 0 15px rgba(108,92,231,0.1);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      min-height: 280px;
       position: relative;
+      overflow: hidden;
+    }
+
+    .development-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 15px 40px rgba(108,92,231,0.2);
+      z-index: 1;
+    }
+
+    .development-card.highlight {
       border: 2px solid var(--primary);
-      box-shadow: 0 0 30px rgba(108, 92, 231, 0.5);
+      background: linear-gradient(145deg, rgba(108,92,231,0.2), rgba(76,175,80,0.15));
+      box-shadow: 0 0 40px rgba(108,92,231,0.3),
+                  0 0 30px rgba(76,175,80,0.2);
+      animation: phase-pulse 2s infinite ease-in-out;
+      position: relative;
+      overflow: visible;
     }
 
     .development-card.highlight::before {
-      content: "";
+      content: '';
       position: absolute;
-      top: -10px;
-      left: -10px;
-      right: -10px;
-      bottom: -10px;
-      background: radial-gradient(circle, rgba(108, 92, 231, 0.2), transparent 70%);
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
       z-index: -1;
-      animation: spotlight 3s infinite alternate;
-    }
-
-    @keyframes spotlight {
-      0% { opacity: 0.5; }
-      100% { opacity: 1; }
     }
 
     .development-card.highlight::after {
-      content: "Current Phase";
-      position: absolute;
-      top: 10px;
-      right: 10px;
+      content: "🚀 Current Phase";
       background: white;
-      color: black;
-      padding: 5px 10px;
-      font-size: 0.8rem;
-      font-weight: bold;
+      color: #000000;
+      box-shadow: 0 5px 20px rgba(108,92,231,0.2);
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      padding: 8px 15px;
+      font-size: 0.9rem;
+      font-weight: 700;
       border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      transform: rotate(5deg);
+    }
+
+    @keyframes phase-pulse {
+      0% { transform: scale(1); box-shadow: 0 0 40px rgba(108,92,231,0.3); }
+      50% { transform: scale(1.02); box-shadow: 0 0 60px rgba(108,92,231,0.5); }
+      100% { transform: scale(1); box-shadow: 0 0 40px rgba(108,92,231,0.3); }
+    }
+
+    .development-card.highlight:hover {
+      transform: translateY(-12px) scale(1.05);
+      z-index: 2;
     }
 
     .premium-footer {
@@ -291,7 +356,7 @@
         left: 0;
         width: 100%;
         background: var(--surface);
-        padding: 1rem;
+        padding: 1rem 0;
         box-shadow: 0 4px 30px rgba(0,0,0,0.1);
         transform: translateY(-100%);
         opacity: 0;
@@ -305,6 +370,15 @@
 
       .nav-toggle {
         display: block;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .nav-link {
+        padding: 0.75rem;
       }
     }
 
@@ -340,15 +414,40 @@
         <p>Explore the powerful functionalities of Ghosty</p>
       </div>
       <div class="features-grid">
-        <article class="feature-card"><i class="fas fa-bolt feature-icon"></i><h3>Fake Lag & Speed Hack</h3><p>Simulate network lag and override speed limits with visible keybinds.</p></article>
-        <article class="feature-card"><i class="fas fa-unlink feature-icon"></i><h3>Noclip Mode</h3><p>Ghost through obstacles with customizable keybind support.</p></article>
+        <article class="feature-card featured-card">
+          <i class="fas fa-rocket feature-icon"></i>
+          <h3>Truck Jump Pro</h3>
+          <p>Advanced aerial control with physics customization and landing stabilization.</p>
+        </article>
+
+        <article class="feature-card">
+          <i class="fas fa-bolt feature-icon"></i>
+          <h3>Speed Hack+</h3>
+          <p>Precision speed control with anti-detection and collision bypass.</p>
+        </article>
+
+        <article class="feature-card featured-card">
+          <i class="fas fa-shield-alt feature-icon"></i>
+          <h3>Super Stability</h3>
+          <p>Advanced inertia control and anti-flip technology for extreme maneuvers.</p>
+        </article>
+
+        <article class="feature-card featured-card">
+          <i class="fas fa-lock-open feature-icon"></i>
+          <h3>Speed Unlocker+</h3>
+          <p>Ultimate speed bypass with dynamic stability preservation system.</p>
+        </article>
+
+        <article class="feature-card"><i class="fas fa-unlink feature-icon"></i><h3>Noclip Mode</h3><p>Phase through objects with customizable activation keybinds.</p></article>
         <article class="feature-card"><i class="fas fa-save feature-icon"></i><h3>Path Saving</h3><p>Automatic bootstrapper path preservation for quick access.</p></article>
-        <article class="feature-card"><i class="fas fa-cogs feature-icon"></i><h3>Integration Suite</h3><p>Keybind display system + Direct Discord access via bootstrapper.</p></article>
-        <article class="feature-card"><i class="fas fa-car feature-icon"></i><h3>Suspension Control</h3><p>Adjust front and rear suspension independently.</p></article>
-        <article class="feature-card"><i class="fas fa-lightbulb feature-icon"></i><h3>Advanced Lighting</h3><p>Customize headlights, light spam, and super light mod.</p></article>
-        <article class="feature-card"><i class="fas fa-traffic-light feature-icon"></i><h3>Turn Signal Freezing</h3><p>Freeze left, right turn signals, and reverse lights.</p></article>
-        <article class="feature-card"><i class="fas fa-lock feature-icon"></i><h3>Speed Unlocker</h3><p>Bypass vehicle speed limitations.</p></article>
-        <article class="feature-card"><i class="fas fa-chart-line feature-icon"></i><h3>Performance Analytics</h3><p>Real-time tracking of system and game performance.</p></article>
+        <article class="feature-card"><i class="fas fa-cogs feature-icon"></i><h3>Integration Suite</h3><p>Keybind display system + Direct Discord access.</p></article>
+
+        <article class="feature-card"><i class="fas fa-car feature-icon"></i><h3>Suspension Control</h3><p>Independent front/rear suspension adjustment.</p></article>
+        <article class="feature-card"><i class="fas fa-lightbulb feature-icon"></i><h3>Advanced Lighting</h3><p>Custom headlights, light spam, and super light mod.</p></article>
+        <article class="feature-card"><i class="fas fa-traffic-light feature-icon"></i><h3>Turn Signal Freeze</h3><p>Lock left/right signals and reverse lights.</p></article>
+        <article class="feature-card"><i class="fas fa-tachometer-alt feature-icon"></i><h3>Precision Speed</h3><p>Slider-based control with numerical display.</p></article>
+
+        <article class="feature-card"><i class="fas fa-palette feature-icon"></i><h3>Dashboard Colors</h3><p>6 presets + RGB cycling mode.</p></article>
       </div>
     </section>
 
