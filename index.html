@@ -29,6 +29,9 @@
       color: var(--text-primary);
       line-height: 1.6;
       overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
       opacity: 0;
       animation: fadeIn 1s ease-out forwards;
       cursor: crosshair;
@@ -36,8 +39,6 @@
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
-      touch-action: none;
-      overscroll-behavior: none;
     }
 
     @keyframes fadeIn { to { opacity: 1; } }
@@ -223,7 +224,7 @@
       transform: translateX(30px);
       animation: slideIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards 0.6s;
       box-shadow: 0 0 20px rgba(108,92,231,0.2);
-      transition: box-shadow 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -350,7 +351,15 @@
         display: block;
       }
 
+      .hero {
+        padding: 6rem 5% 2rem;
+      }
+
       .hero h1 { font-size: 2.5rem; }
+
+      .download-btn {
+        padding: 1rem 2rem;
+      }
     }
 
     .premium-footer {
@@ -403,6 +412,41 @@
       touch-action: none;
       overscroll-behavior: none;
     }
+
+    .parallax-container {
+      position: relative;
+      perspective: 1000px;
+      transform-style: preserve-3d;
+    }
+
+    .ui-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transform: translateZ(0);
+    }
+
+    .ui-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at var(--x) var(--y), 
+        rgba(108, 92, 231, 0.15) 0%, 
+        transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .ui-card:hover::after {
+      opacity: 1;
+    }
+
+    .ui-card img {
+
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
   </style>
 </head>
 <body>
@@ -434,8 +478,10 @@
             Download v2.6 ⚡
           </a>
         </div>
-        <div class="ui-card">
-          <img src="https://i.ibb.co/wF1sSMLN/image-2025-02-17-213851308.png" alt="Ghosty Interface Preview" draggable="false" loading="lazy" decoding="async">
+        <div class="parallax-container">
+          <div class="ui-card">
+            <img src="https://i.ibb.co.com/cXrdqhmW/image.png" alt="Ghosty Interface Preview" draggable="false" loading="lazy" decoding="async">
+          </div>
         </div>
       </div>
     </section>
@@ -471,6 +517,28 @@
 
     console.log('%cSTOP!', 'color: red; font-size: 50px; font-weight: bold;');
     console.log('%cThis is a browser feature for developers. If someone told you to copy-paste something here, it\'s a scam.', 'font-size: 18px;');
+
+
+    const parallaxContainer = document.querySelector('.parallax-container');
+    const uiCard = document.querySelector('.ui-card');
+
+    parallaxContainer.addEventListener('mousemove', (e) => {
+      const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+      const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+      uiCard.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+      
+      const rect = uiCard.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      uiCard.style.setProperty('--x', `${x}px`);
+      uiCard.style.setProperty('--y', `${y}px`);
+    });
+
+    parallaxContainer.addEventListener('mouseleave', () => {
+      uiCard.style.transform = 'rotateY(0) rotateX(0)';
+      uiCard.style.setProperty('--x', '50%');
+      uiCard.style.setProperty('--y', '50%');
+    });
   </script>
 </body>
 </html>
