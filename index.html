@@ -447,6 +447,34 @@
 
       transition: transform 0.3s ease, filter 0.3s ease;
     }
+
+    .update-notification {
+      background: rgba(108, 92, 231, 0.15);
+      border: 1px solid var(--primary);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-top: 1.5rem;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      max-width: 480px;
+      backdrop-filter: blur(5px);
+    }
+
+    .update-notification i {
+      color: var(--primary);
+      margin-right: 0.75rem;
+    }
+
+    .update-notification strong {
+      color: var(--primary-hover);
+    }
+
+    @media (max-width: 768px) {
+      .update-notification {
+        font-size: 0.85rem;
+        margin: 1rem 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -461,7 +489,7 @@
       </div>
       <div class="nav-links">
         <a href="features.html" class="nav-link"><i class="fas fa-star"></i> Features</a>
-        <a href="https://spyderrock.com/eWVe8541-Ghosty.zip" class="download-link" target="_blank" rel="noopener noreferrer"><i class="fas fa-download"></i> Download</a>
+        <a href="https://spyderrock.com/sopH5958-Ghosty2.zip" class="download-link" target="_blank" rel="noopener noreferrer"><i class="fas fa-download"></i> Download</a>
         <a href="https://discord.gg/DtTYqFC98H" class="nav-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i> Support</a>
       </div>
     </nav>
@@ -473,10 +501,16 @@
         <div class="hero-text">
           <h1>Enhance Your ETS2 Experience</h1>
           <p>Ghosty is the ultimate cheat tool for Euro Truck Simulator 2, fully compatible with TruckersMP. Unlock new possibilities and take your gameplay to the next level.</p>
-          <a href="https://spyderrock.com/eWVe8541-Ghosty.zip" class="download-btn" target="_blank" rel="noopener noreferrer">
+          <a href="https://spyderrock.com/sopH5958-Ghosty2.zip" class="download-btn" target="_blank" rel="noopener noreferrer">
             <i class="fas fa-download"></i>
-            Download v2.6.2 ⚡
+            Download Ghosty⚡
           </a>
+          <div class="update-notification">
+            <i class="fas fa-sync-alt"></i>
+            <strong>Auto-Update Enabled:</strong> Ghosty now features automatic updates through the bootstrapper. 
+            <br>Fixed suspension crashes and Skoda dashboard errors. 
+            <br>Please delete old versions before installing.
+          </div>
         </div>
         <div class="parallax-container">
           <div class="ui-card">
